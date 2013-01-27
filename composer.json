@@ -1,6 +1,6 @@
 {
     "name": "camspiers/json-pretty",
-    "description": "Provides support for pretty printing in php 5.3",
+    "description": "Provides support for json pretty printing in php 5.3",
     "license": "MIT",
     "authors": [
         {
