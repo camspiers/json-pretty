@@ -7,6 +7,14 @@ class JsonPretty
     const TAB = "\t";
     const NEW_LINE = "\n";
 
+    /**
+     * Checks if input is string, if so, straight runs
+     * process, else it encodes the input as json then
+     * runs prettify.
+     * @param  mixed  $json  The json string or object to prettify
+     * @param  int    $flags The flags to use in json encoding
+     * @return string The prettified json
+     */
     public function prettify($json, $flags = null)
     {
         if (is_string($json)) {
@@ -16,6 +24,13 @@ class JsonPretty
         }
     }
 
+    /**
+     * Makes a json string pretty
+     * Function adapted from umbrae [at] gmail [dot] com
+     * at http://php.net/manual/en/function.json-encode.php
+     * @param  string $json A json string to prettify
+     * @return string The prettified json string
+     */
     protected function process($json)
     {
         $result = '';
