@@ -4,9 +4,6 @@ namespace Camspiers\JsonPretty;
 
 class JsonPretty
 {
-    const TAB = "\t";
-    const NEW_LINE = "\n";
-
     /**
      * Checks if input is string, if so, straight runs
      * process, else it encodes the input as json then
@@ -36,54 +33,45 @@ class JsonPretty
         $result = '';
         $indent = 0;
         $inString = false;
-
+        $tab = "\t";
         $len = strlen($json);
-
         for ($c = 0; $c < $len; $c++) {
             $char = $json[$c];
-            switch ($char) {
-                case '{':
-                case '[':
-                    if (!$inString) {
-                        $result .= $char . self::NEW_LINE . str_repeat(self::TAB, $indent + 1);
-                        $indent++;
-                    } else {
-                        $result .= $char;
-                    }
-                    break;
-                case '}':
-                case ']':
-                    if (!$inString) {
-                        $indent--;
-                        $result .= self::NEW_LINE . str_repeat(self::TAB, $indent) . $char;
-                    } else {
-                        $result .= $char;
-                    }
-                    break;
-                case ',':
-                    if (!$inString) {
-                        $result .= ',' . self::NEW_LINE . str_repeat(self::TAB, $indent);
-                    } else {
-                        $result .= $char;
-                    }
-                    break;
-                case ':':
-                    if (!$inString) {
-                        $result .= ': ';
-                    } else {
-                        $result .= $char;
-                    }
-                    break;
-                case '"':
-                    if ($c > 0 && $json[$c - 1] != '\\') {
-                        $inString = !$inString;
-                    }
-                default:
+            if ($char === '{' || $char === '[') {
+                if (!$inString) {
+                    $indent++;
+                    $result .= $char . PHP_EOL . str_repeat($tab, $indent);
+                } else {
                     $result .= $char;
-                    break;
+                }
+            } elseif ($char === '}' || $char === ']') {
+                if (!$inString) {
+                    $indent--;
+                    $result .= PHP_EOL . str_repeat($tab, $indent) . $char;
+                } else {
+                    $result .= $char;
+                }
+            } elseif ($char === ',') {
+                if (!$inString) {
+                    $result .= ',' . PHP_EOL . str_repeat($tab, $indent);
+                } else {
+                    $result .= $char;
+                }
+            } elseif ($char === ':') {
+                if (!$inString) {
+                    $result .= ': ';
+                } else {
+                    $result .= $char;
+                }
+            } elseif ($char === '"') {
+                if ($c > 0 && $json[$c - 1] !== '\\') {
+                    $inString = !$inString;
+                }
+                $result .= $char;
+            } else {
+                $result .= $char;
             }
         }
-
         return $result;
     }
 }
