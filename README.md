@@ -1,4 +1,4 @@
-Json Pretty
+JSON Pretty
 =======
 
 [![Build Status](https://travis-ci.org/camspiers/json-pretty.png?branch=master)](https://travis-ci.org/camspiers/json-pretty)
