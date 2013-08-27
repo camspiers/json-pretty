@@ -28,35 +28,35 @@ class JsonPretty
      * Function adapted from umbrae [at] gmail [dot] com
      * at http://php.net/manual/en/function.json-encode.php
      *
-     * @param  string $json        A json string to prettify
-     * @param  string $indentation A json string to prettify
+     * @param  string $json   A json string to prettify
+     * @param  string $indent A json string to prettify
      * @return string The prettified json string
      */
-    protected function process($json, $indentation = "\t")
+    protected function process($json, $indent = "\t")
     {
         $result = '';
-        $indent = 0;
+        $indentCount = 0;
         $inString = false;
         $len = strlen($json);
         for ($c = 0; $c < $len; $c++) {
             $char = $json[$c];
             if ($char === '{' || $char === '[') {
                 if (!$inString) {
-                    $indent++;
-                    $result .= $char . PHP_EOL . str_repeat($indentation, $indent);
+                    $indentCount++;
+                    $result .= $char . PHP_EOL . str_repeat($indent, $indentCount);
                 } else {
                     $result .= $char;
                 }
             } elseif ($char === '}' || $char === ']') {
                 if (!$inString) {
-                    $indent--;
-                    $result .= PHP_EOL . str_repeat($indentation, $indent) . $char;
+                    $indentCount--;
+                    $result .= PHP_EOL . str_repeat($indent, $indentCount) . $char;
                 } else {
                     $result .= $char;
                 }
             } elseif ($char === ',') {
                 if (!$inString) {
-                    $result .= ',' . PHP_EOL . str_repeat($indentation, $indent);
+                    $result .= ',' . PHP_EOL . str_repeat($indent, $indentCount);
                 } else {
                     $result .= $char;
                 }
