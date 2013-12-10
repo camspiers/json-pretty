@@ -43,7 +43,11 @@ class JsonPretty
             if ($char === '{' || $char === '[') {
                 if (!$inString) {
                     $indentCount++;
-                    $result .= $char . PHP_EOL . str_repeat($indent, $indentCount);
+                    if($char === '[' && $json[$c+1]  == "]") {
+                        $result .= $char . PHP_EOL;
+                    } else {
+                        $result .= $char . PHP_EOL . str_repeat($indent, $indentCount);
+                    }
                 } else {
                     $result .= $char;
                 }
