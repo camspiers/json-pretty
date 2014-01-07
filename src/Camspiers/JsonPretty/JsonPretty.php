@@ -4,6 +4,16 @@ namespace Camspiers\JsonPretty;
 
 class JsonPretty
 {
+
+
+    function isJson($string) {
+
+        if(!is_string($string)) return false;
+
+         json_decode($string);
+          return (json_last_error() == JSON_ERROR_NONE);
+    }
+
     /**
      * Checks if input is string, if so, straight runs
      * process, else it encodes the input as json then
@@ -16,11 +26,17 @@ class JsonPretty
      */
     public function prettify($json, $flags = null, $indent = "\t")
     {
-        if (is_string($json)) {
+
+        if(!$this->isJson($json)) return $this->process(json_encode($json, $flags), $indent);
+        return $this->process($json, $indent);
+
+        /*
+        {
             return $this->process($json, $indent);
         } else {
             return $this->process(json_encode($json, $flags), $indent);
         }
+         */
     }
 
     /**
