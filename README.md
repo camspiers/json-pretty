@@ -1,4 +1,4 @@
-Json Pretty
+JSON Pretty
 =======
 
 [![Build Status](https://travis-ci.org/camspiers/json-pretty.png?branch=master)](https://travis-ci.org/camspiers/json-pretty)
@@ -8,10 +8,19 @@ This project provides pretty printing for json in php 5.3.
 Installation
 ------------
 
-Download [composer](http://getcomposer.org/download/).
-Install `json-pretty` using composer:
+Make sure the following is present in your `composer.json` file:
 
-    $ composer install
+```json
+{
+    "require": {
+        "camspiers/json-pretty": "0.1.*"
+    }
+}
+```
+
+Then run:
+
+    $ composer update
 
 Usage
 -----
