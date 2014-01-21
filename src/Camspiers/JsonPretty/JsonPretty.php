@@ -16,11 +16,11 @@ class JsonPretty
      */
     public function prettify($json, $flags = null, $indent = "\t")
     {
-        if (is_string($json)) {
-            return $this->process($json, $indent);
-        } else {
+        if (!$this->isJson($json)) {
             return $this->process(json_encode($json, $flags), $indent);
         }
+
+        return $this->process($json, $indent);
     }
 
     /**
@@ -43,7 +43,13 @@ class JsonPretty
             if ($char === '{' || $char === '[') {
                 if (!$inString) {
                     $indentCount++;
-                    $result .= $char . PHP_EOL . str_repeat($indent, $indentCount);
+                    if ($char === '[' && $json[$c+1]  == "]") {
+                        $result .= $char . PHP_EOL;
+                    } elseif ($char === '{' && $json[$c+1]  == "}") {
+                        $result .= $char . PHP_EOL;
+                    } else {
+                        $result .= $char . PHP_EOL . str_repeat($indent, $indentCount);
+                    }
                 } else {
                     $result .= $char;
                 }
@@ -76,5 +82,21 @@ class JsonPretty
             }
         }
         return $result;
+    }
+
+    /**
+     * Check if a string is a json or not
+     *
+     * @param  string  $string
+     * @return boolean
+     */
+    protected function isJson($string)
+    {
+        if (!is_string($string)) {
+            return false;
+        }
+        json_decode($string);
+
+        return json_last_error() == JSON_ERROR_NONE;
     }
 }

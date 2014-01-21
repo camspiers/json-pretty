@@ -30,4 +30,18 @@ JSON;
             $jsonPretty->prettify(json_encode($object))
         );
     }
+
+
+    public function testPrettifySimpleString()
+    {
+        $in  = 'name';
+        $out = '"name"';
+
+        $jsonPretty = new JsonPretty;
+        $this->assertEquals(
+            $out,
+            $jsonPretty->prettify($in)
+        );
+
+    }
 }
