@@ -4,16 +4,6 @@ namespace Camspiers\JsonPretty;
 
 class JsonPretty
 {
-
-
-    function isJson($string) {
-
-        if(!is_string($string)) return false;
-
-         json_decode($string);
-          return (json_last_error() == JSON_ERROR_NONE);
-    }
-
     /**
      * Checks if input is string, if so, straight runs
      * process, else it encodes the input as json then
@@ -26,17 +16,11 @@ class JsonPretty
      */
     public function prettify($json, $flags = null, $indent = "\t")
     {
-
-        if(!$this->isJson($json)) return $this->process(json_encode($json, $flags), $indent);
-        return $this->process($json, $indent);
-
-        /*
-        {
-            return $this->process($json, $indent);
-        } else {
+        if (!$this->isJson($json)) {
             return $this->process(json_encode($json, $flags), $indent);
         }
-         */
+
+        return $this->process($json, $indent);
     }
 
     /**
@@ -98,5 +82,21 @@ class JsonPretty
             }
         }
         return $result;
+    }
+
+    /**
+     * Check if a string is a json or not
+     *
+     * @param  string  $string
+     * @return boolean
+     */
+    protected function isJson($string)
+    {
+        if (!is_string($string)) {
+            return false;
+        }
+        json_decode($string);
+
+        return json_last_error() == JSON_ERROR_NONE;
     }
 }
