@@ -8,8 +8,8 @@
             "email": "cameron@heyday.co.nz"
         }
     ],
-    "require": {
-        "pimple/pimple": "~1.0"
+    "suggest": {
+        "pimple/pimple": "Useful for dependency injection"
     },
     "require-dev": {
         "phpunit/phpunit": "3.7.*"
