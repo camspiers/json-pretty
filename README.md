@@ -13,7 +13,7 @@ Make sure the following is present in your `composer.json` file:
 ```json
 {
     "require": {
-        "camspiers/json-pretty": "0.1.*"
+        "camspiers/json-pretty": "1.0.*"
     }
 }
 ```
