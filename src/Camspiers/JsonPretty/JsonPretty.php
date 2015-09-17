@@ -76,8 +76,8 @@ class JsonPretty
                 if (
                     // A String is ending, when there is a not escaped quote ...
                     ($c > 0 && $json[$c - 1] !== '\\')
-                    &&
-                    // and a String is ending, when there is a quote prepended with a escaped slash.
+                    ||
+                    // or a String is ending, when there is a quote prepended with a escaped slash.
                     ($c > 1 && $json[$c - 2].$json[$c - 1] === '\\\\')
                 ) {
                     $inString = !$inString;
