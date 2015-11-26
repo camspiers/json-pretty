@@ -9,14 +9,19 @@ class JsonPretty
      * process, else it encodes the input as json then
      * runs prettify.
      *
-     * @param  mixed  $json   The json string or object to prettify
-     * @param  int    $flags  The flags to use in json encoding
-     * @param  string $indent The indentation character string
+     * @param  mixed  $json             The json string or object to prettify
+     * @param  int    $flags            The flags to use in json encoding
+     * @param  string $indent           The indentation character string
+     * @param  bool   $is_json          Is the input already in JSON format?
      * @return string The prettified json
      */
-    public function prettify($json, $flags = null, $indent = "\t")
+    public function prettify($json, $flags = null, $indent = "\t", $is_json=null)
     {
-        if (!$this->isJson($json)) {
+        if (!isset($is_json)) {
+            $is_json = $this->isJson($json);
+        }
+
+        if (!$is_json) {
             return $this->process(json_encode($json, $flags), $indent);
         }
 
