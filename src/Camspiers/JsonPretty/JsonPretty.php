@@ -15,7 +15,7 @@ class JsonPretty
      * @param  bool   $is_json          Is the input already in JSON format?
      * @return string The prettified json
      */
-    public function prettify($json, $flags = null, $indent = "\t", $is_json=null)
+    public function prettify($json, $flags = 0, $indent = "\t", $is_json=null)
     {
         if (!isset($is_json)) {
             $is_json = $this->isJson($json);
